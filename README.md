@@ -25,12 +25,12 @@
 | 1 | **First Flutter App** | Базова структура проєкту, Widgets, `MaterialApp`, `Scaffold`. | 🟢 Easy |
 | 2 | **Roll Dice App** 🎲 | Стан (`StatefulWidget`), `setState`, генерація випадкових чисел (`Random`), Assets. | 🟢 Easy |
 | 3 | **Quiz App** ❓ | Відокремлення даних від логіки, динамічний UI, навігація між екранами. | 🟡 Medium |
-| 4 | **Expense Tracker** 💰 | Робота з формами (`TextFormField`), валідація, модальні вікна, списки (`ListView`). | 🟡 Medium |
-| 5 | **Todo App** ✅ | CRUD-операції (Create, Read, Update, Delete), керування станом списку. | 🟡 Medium |
+| 4 | **Quiz V2 App ❓ | Відокремлення даних від логіки, динамічний UI, навігація між екранами. (Розширено) | 🟡 Medium |
+| 5 | **Expense Tracker** 💰 | Робота з формами (`TextFormField`), валідація, модальні вікна, списки (`ListView`) | 🟡 Medium |
 | 6 | **Meals App** 🍝 | Комплексна навігація (`Routing`), передача даних між екранами, Tabs. | 🔴 Hard |
 | 7 | **Shopping List** 🛒 | Backend-інтеграція (**Firebase Firestore**), HTTP-запити, Realtime data streams. | 🔴 Hard |
-| 8 | **Favorite Places** 📍 | Нативні функції пристрою: Камера, Google Maps, Дозволи (Permissions). | 🔴 Hard |
-
+| 8 | **Flutter Messanger** 📍 | Нативні функції пристрою: Камера, Google Maps, Дозволи (Permissions). | 🔴 Hard |
+ 
 ---
 
 ## 🚀 Швидкий старт (Для Ментора)
@@ -43,13 +43,13 @@
 ### Встановлення
 1. **Клонуйте репозиторій:**
    ```bash
-   git clone [https://github.com/your-username/project-flutternest.git](https://github.com/your-username/project-flutternest.git)
+   git clone [https://github.com/cs-kpnu/project-flutternest.git](https://github.com/cs-kpnu/project-flutternest.git)
    cd project-flutternest
 
 2. **Перейдіть у папку потрібного шаблону (наприклад, Quiz App):**
    *Кожен шаблон є окремим Flutter-проєктом!*
    ```bash
-   cd 03_quiz_app
+   cd template_3
 
 3. **Встановіть залежності:**
    ```bash
@@ -79,9 +79,7 @@
 
 * **Core:** Flutter SDK, Dart
 * **Backend:** Firebase (Firestore)
-* **Design:** Figma (Wireframes), Miro (User Flow & Architecture)
 * **Tools:** Git, VS Code, Android Emulator
-* **Task Management:** Trello (Scrum/Kanban)
 
 ---
 
