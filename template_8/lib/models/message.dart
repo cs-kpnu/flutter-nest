@@ -6,10 +6,7 @@ class Message {
   final String receiverId;
   final String message;
   final Timestamp timestamp;
-  final String? type;
-  final String? fileUrl;   
-  final String? fileName;
-  final bool isRead; // 🔥 Нове поле
+  final bool isRead;
 
   Message({
     required this.senderId,
@@ -17,9 +14,6 @@ class Message {
     required this.receiverId,
     required this.message,
     required this.timestamp,
-    this.type = 'text',
-    this.fileUrl,
-    this.fileName,
     this.isRead = false,
   });
 
@@ -30,9 +24,6 @@ class Message {
       'receiverId': receiverId,
       'message': message,
       'timestamp': timestamp,
-      'type': type,
-      'fileUrl': fileUrl,
-      'fileName': fileName,
       'isRead': isRead,
     };
   }

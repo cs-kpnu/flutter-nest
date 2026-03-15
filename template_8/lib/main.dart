@@ -9,7 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'dart:io'; // Щоб перевірити, чи це Android
+import 'package:flutter/foundation.dart' show kIsWeb; // Універсальна перевірка
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,57 +20,41 @@ void main() async {
 
   await setupFlutterNotifications(); 
 
-  // 🔥 ЗАПУСКАЄМО СЛУХАЧА АВТОРИЗАЦІЇ
-  // Цей код спрацює автоматично, як тільки Firebase згадає, хто залогінений
-  // або коли ви увійдете в акаунт.
   FirebaseAuth.instance.authStateChanges().listen((User? user) async {
     if (user != null) {
-      print("👤 ЮЗЕР ВИЯВЛЕНИЙ: ${user.uid}. Пробуємо зберегти токен...");
       await _saveFcmToken(user.uid);
-    } else {
-      print("👤 ЮЗЕР НЕ ЗАЛОГІНЕНИЙ");
     }
   });
 
   runApp(const MyApp());
 }
 
-// 🔥 ОКРЕМА ФУНКЦІЯ ДЛЯ ЗБЕРЕЖЕННЯ ТОКЕНА
 Future<void> _saveFcmToken(String userId) async {
   try {
-    // 1. Отримуємо токен
     String? token = await FirebaseMessaging.instance.getToken();
     
     if (token != null) {
-      print("🔔 ОТРИМАНО ТОКЕН: $token");
-
-      // 2. Пишемо в базу
-      await FirebaseFirestore.instance
+      await _firestoreInstance
           .collection('users')
           .doc(userId)
           .set({
             'fcmToken': token,
-            'deviceInfo': 'Android/iOS', // Можна додати для дебагу
             'lastTokenUpdate': FieldValue.serverTimestamp(),
-          }, SetOptions(merge: true)) // Важливо: merge, щоб не стерти інші поля
-          .then((_) => print("✅✅✅ ТОКЕН УСПІШНО ЗАПИСАНО В FIREBASE!"))
-          .catchError((error) => print("⛔⛔⛔ ПОМИЛКА ЗАПИСУ В БД: $error"));
+          }, SetOptions(merge: true));
           
-      // 3. Також слухаємо оновлення токена (якщо він зміниться під час роботи)
       FirebaseMessaging.instance.onTokenRefresh.listen((newToken) {
-        FirebaseFirestore.instance
+        _firestoreInstance
           .collection('users')
           .doc(userId)
           .update({'fcmToken': newToken});
-        print("🔄 Токен оновлено автоматично");
       });
-    } else {
-      print("⚠️ Токен не отримано (null)");
     }
   } catch (e) {
-    print("⛔ КРИТИЧНА ПОМИЛКА FCM: $e");
+    debugPrint("⛔ FCM ERROR: $e");
   }
 }
+
+final _firestoreInstance = FirebaseFirestore.instance;
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -79,23 +63,11 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-Future<void> _setHighRefreshRate() async {
-  if (Platform.isAndroid) {
-    try {
-      // Цей метод автоматично шукає і ставить максимальну доступну частоту (90, 120, 144 Гц)
-      await FlutterDisplayMode.setHighRefreshRate();
-    } catch (e) {
-      print("Error setting high refresh rate: $e");
-    }
-  }
-}
-
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _setHighRefreshRate(); 
     _setOptimalDisplayMode();
   }
 
@@ -108,17 +80,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
-      print('📱 Додаток у фоні, очищаємо активний чат');
       ChatService.setActiveChatId(null);
     }
   }
 
-Future<void> _setOptimalDisplayMode() async {
-    if (Platform.isAndroid) {
+  Future<void> _setOptimalDisplayMode() async {
+    // Перевіряємо kIsWeb перед використанням плагінів, що працюють тільки на Android/iOS
+    if (!kIsWeb) {
       try {
         await FlutterDisplayMode.setHighRefreshRate();
       } catch (e) {
-        print("Error setting display mode: $e");
+        debugPrint("Error setting display mode: $e");
       }
     }
   }
@@ -138,7 +110,5 @@ Future<void> _setOptimalDisplayMode() async {
         );
       },
     );
-  
   }
-
 }
