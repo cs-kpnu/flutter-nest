@@ -1,55 +1,58 @@
-import 'package:adv_basics/models/quiz_question.dart';
+import 'package:quiz/models/quiz_question.dart';
 
 const questions = [
-  QuizQuestion(
-    'What are the main building blocks of Flutter UIs?',
-    [
-      'Widgets',
-      'Components',
-      'Blocks',
-      'Functions',
-    ],
-  ),
-  QuizQuestion('How are Flutter UIs built?', [
-    'By combining widgets in code',
-    'By combining widgets in a visual editor',
-    'By defining widgets in config files',
-    'By using XCode for iOS and Android Studio for Android',
-  ]),
-  QuizQuestion(
-    'What\'s the purpose of a StatefulWidget?',
-    [
-      'Update UI as data changes',
-      'Update data as UI changes',
-      'Ignore data changes',
-      'Render UI that does not depend on data',
-    ],
-  ),
-  QuizQuestion(
-    'Which widget should you try to use more often: StatelessWidget or StatefulWidget?',
-    [
-      'StatelessWidget',
-      'StatefulWidget',
-      'Both are equally good',
-      'None of the above',
-    ],
-  ),
-  QuizQuestion(
-    'What happens if you change data in a StatelessWidget?',
-    [
-      'The UI is not updated',
-      'The UI is updated',
-      'The closest StatefulWidget is updated',
-      'Any nested StatefulWidgets are updated',
-    ],
-  ),
-  QuizQuestion(
-    'How should you update data inside of StatefulWidgets?',
-    [
-      'By calling setState()',
-      'By calling updateData()',
-      'By calling updateUI()',
-      'By calling updateState()',
-    ],
-  ),
+QuizQuestion(
+'Якщо б ти був вiдеокартою вiд Gigabyte, то яка б це була модель?',
+[
+'RTX 4090 Gaming OC — потужна, ефектна, для тих, хто любить бути на вершинi',
+'RTX 3060 Eagle — надiйна, гарний баланс цiни та якостi',
+'GTX 1660 Super — класика, яка нiколи не виходить з моди',
+'RX 6700 XT Gaming OC — для тих, хто любить альтернативнi рiшення',
+],
+),
+QuizQuestion(
+'Який твiй стиль роботи?',
+[
+'Максимальна продуктивнiсть, навiть якщо це вимагає багато енергiї',
+'Ефективнiсть i стабiльнiсть — головне',
+'Справжнiй трудоголiк, але без зайвого фанатизму',
+'Люблю експериментувати i пробувати нове',
+],
+),
+QuizQuestion(
+'Як ти ставишся до "розгону"?',
+[
+'Обожнюю вичавлювати максимум, навiть якщо ризикую',
+'Тiльки розумний розгiн, щоб не перегрiватися',
+'Працюю в стандартному режимi — надiйнiсть важливiша',
+'Навiщо розганятись? i так добре!',
+],
+),
+QuizQuestion(
+'Який твiй iгровий стиль?',
+[
+'Тiльки ультра-налаштування, 4K i 144 FPS!',
+'Головне — плавний геймплей, навiть на середнiх налаштуваннях',
+'Ретро-iгри або iнди-проекти — менi це ближче',
+'Люблю VR та експерименти з незвичайними технологiями',
+],
+),
+QuizQuestion(
+'Як ти реагуєш на конкуренцiю?',
+[
+'Це моє паливо! Треба бути першим!',
+'Головне — не вiдставати, але без фанатизму',
+'Не дуже переживаю — роблю свою справу',
+'Конкуренцiя? Менi важливi iнновацiї, а не гонка',
+],
+),
+QuizQuestion(
+'Що для тебе важливiше?',
+[
+'Продуктивнiсть i технологiчнiсть',
+'Надiйнiсть i довговiчнiсть',
+'Цiна та практичнiсть',
+'Унiкальнiсть i незвичайнi рiшення',
+],
+),
 ];
